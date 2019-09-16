@@ -5,6 +5,7 @@ from Juki import views
 urlpatterns = [
     path('user', views.UserList.as_view(), name='user'),
     path('user/<str:pk>/', views.UserDetail.as_view(), name='userDetail'),
+    path('playlistdefault', views.PlaylistListDefault.as_view(), name='playlistDefault'),
     path('playlist', views.PlaylistList.as_view(), name='playlist'),
     path('playlist/addMember', views.add_members_to_playlist, name='addMember'),
     path('playlist/<str:pk>/', views.PlaylistDetail.as_view(), name='playlistDetail'),

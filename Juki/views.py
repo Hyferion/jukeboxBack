@@ -1,22 +1,15 @@
 import base64
-import json
 import random
 import string
 import requests
-from django.shortcuts import render
 
-# Create your views here.
 from rest_framework import mixins, generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from Juki.config import CLIENT_SECRET, CLIENT_ID, AUTH_URL, REDIRECT_URI
 from Juki.models import User, Playlist, Song, Vote
 from Juki.serializers import UserSerializer, PlaylistSerializer, SongSerializer, VoteSerializer
-
-CLIENT_ID = <YOUR_CLIENT_ID>
-CLIENT_SECRET = <YOUR_CLIENT_SECRET>
-AUTH_URL = "https://accounts.spotify.com/api/token"
-REDIRECT_URI = <YOUR_REDIRECT_URI>
 
 
 @api_view(['POST'])
@@ -133,6 +126,16 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class PlaylistListDefault(mixins.ListModelMixin, generics.GenericAPIView):
+    serializer_class = PlaylistSerializer
+
+    def get_queryset(self):
+        return Playlist.objects.filter(is_default=True)
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 
 class PlaylistList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):

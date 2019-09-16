@@ -8,8 +8,9 @@ class User(models.Model):
 
 class Playlist(models.Model):
     identifier = models.CharField(max_length=255, primary_key=True)
-    creator = models.OneToOneField(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     members = models.ManyToManyField(User, null=True, blank=True, related_name="members")
+    is_default = models.BooleanField(default=False)
 
 
 class Song(models.Model):

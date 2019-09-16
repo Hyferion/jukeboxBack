@@ -89,3 +89,5 @@ db.sqlite3
 media/
 .idea/
 migrations/
+settings.py
+config.py

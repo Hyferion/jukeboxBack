@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = ('creator', 'identifier', 'members')
+        fields = ('creator', 'identifier', 'members','is_default')
         read_only_fields = ('identifier',)
 
 
@@ -22,7 +22,9 @@ class SongSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Song
-        fields = ('id', 'spotifyId', 'user', 'title', 'artist', 'img', 'playlist', 'display_name', 'timePlaying','duration','votes')
+        fields = (
+        'id', 'spotifyId', 'user', 'title', 'artist', 'img', 'playlist', 'display_name', 'timePlaying', 'duration',
+        'votes')
 
 
 class VoteSerializer(serializers.ModelSerializer):
